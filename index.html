@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>無料セミナー｜AI時代の頑張らないInstagram運用【姫路スタイル】</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1a2744;
+      --blue:   #2d4a8a;
+      --orange: #e8601c;
+      --orange-dark: #c44f10;
+      --gray:   #f5f5f5;
+      --text:   #222222;
+      --muted:  #666666;
+      --white:  #ffffff;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.8;
+      background: var(--white);
+      padding-bottom: 80px; /* sticky button の分 */
+    }
+
+    /* ===== UTILITY ===== */
+    .section { padding: 52px 20px; }
+    .section--gray { background: var(--gray); }
+    .section--navy { background: var(--navy); color: var(--white); }
+    .inner { max-width: 640px; margin: 0 auto; }
+
+    .label {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: .05em;
+      box-shadow: 0 4px 12px rgba(232,96,28,.35);
+    }
+    .btn:hover { background: var(--orange-dark); }
+    .btn::after { content: ' →'; }
+
+    .meta {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .section--navy .meta { color: rgba(255,255,255,.7); }
+
+    /* ===== 01 FIRSTVIEW ===== */
+    .fv {
+      background: linear-gradient(160deg, var(--navy) 60%, #26396b);
+      color: var(--white);
+      padding: 52px 20px 48px;
+      text-align: center;
+    }
+    .fv__badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,.5);
+      font-size: 11px;
+      letter-spacing: .12em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      opacity: .85;
+    }
+    .fv__catch {
+      font-size: clamp(26px, 7vw, 36px);
+      font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 20px;
+    }
+    .fv__catch em {
+      font-style: normal;
+      color: #f9c350;
+    }
+    .fv__sub {
+      font-size: 14px;
+      line-height: 1.9;
+      opacity: .88;
+      margin-bottom: 32px;
+    }
+    .fv__info {
+      margin-top: 14px;
+      font-size: 13px;
+      opacity: .8;
+    }
+    .fv__free {
+      display: inline-block;
+      background: var(--orange);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
+
+    /* ===== 02 EMPATHY ===== */
+    .checklist {
+      list-style: none;
+      margin: 0 0 20px;
+    }
+    .checklist li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+    .checklist li::before {
+      content: '□';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-size: 16px;
+    }
+    .empathy__close {
+      border-left: 3px solid var(--orange);
+      padding-left: 14px;
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    /* ===== 03 SOLUTION ===== */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 13px;
+    }
+    .compare-table th {
+      padding: 10px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .compare-table th:first-child { background: #dde; color: var(--navy); }
+    .compare-table th:last-child  { background: var(--navy); color: var(--white); }
+    .compare-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #e0e0e0;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .compare-table td:first-child { background: #f8f8fc; color: var(--muted); }
+    .compare-table td:last-child  { background: #eef2fa; font-weight: 700; color: var(--navy); }
+
+    .learn-list {
+      list-style: none;
+      margin: 0 0 20px;
+    }
+    .learn-list li {
+      position: relative;
+      padding-left: 26px;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+    .learn-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .note-box {
+      background: #fff8e1;
+      border-left: 3px solid #f9c350;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #555;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ===== 04 CTA MID ===== */
+    .cta-mid {
+      background: var(--navy);
+      padding: 44px 20px;
+      text-align: center;
+    }
+    .cta-mid p {
+      color: var(--white);
+      font-size: 15px;
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    /* ===== 05 OVERVIEW + PROFILE ===== */
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+      font-size: 14px;
+    }
+    .overview-table tr { border-bottom: 1px solid #e0e0e0; }
+    .overview-table th {
+      width: 80px;
+      padding: 12px 8px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+      vertical-align: top;
+    }
+    .overview-table td { padding: 12px 8px; vertical-align: top; }
+
+    .profile {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+    .profile__img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #ccd;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #888;
+      text-align: center;
+    }
+    .profile__name { font-weight: 700; margin-bottom: 4px; }
+    .profile__org  { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .profile__bio  { font-size: 13px; line-height: 1.8; }
+
+    /* ===== 06 FAQ ===== */
+    .faq-list { list-style: none; }
+    .faq-list li { margin-bottom: 20px; }
+    .faq-q {
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .faq-q::before {
+      content: 'Q.';
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+    .faq-a {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding-left: 24px;
+    }
+    .faq-a::before {
+      content: 'A.';
+      color: var(--blue);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== 07 FINAL CTA ===== */
+    .final-cta { background: var(--navy); padding: 56px 20px; text-align: center; }
+    .final-cta__headline {
+      font-size: clamp(20px, 5vw, 26px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .final-cta__body {
+      font-size: 14px;
+      color: rgba(255,255,255,.82);
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+
+    /* ===== STICKY BUTTON ===== */
+    .sticky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid #ddd;
+      padding: 10px 16px;
+      z-index: 999;
+    }
+    .sticky a {
+      display: block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(232,96,28,.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== 01 FIRSTVIEW ===== -->
+<section class="fv">
+  <div class="inner">
+    <div class="fv__badge">無料セミナー｜AI時代の頑張らないInstagram運用</div>
+    <h1 class="fv__catch">
+      毎日投稿、<br>
+      <em>やめてもいい</em><br>
+      かもしれません。
+    </h1>
+    <p class="fv__sub">
+      頑張るほど疲れて、成果が出ない——<br>
+      それは「やり方」ではなく「仕組み」の問題です。<br>
+      少額SNS広告＋LPに切り替えると、<br>
+      投稿を減らしながら集客できます。
+    </p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOT0imK_041p34mSSfGCraue9hZS8HLLuCArWiA9FX0Z_yvA/viewform" target="_blank" rel="noopener" class="btn">無料セミナーに申し込む</a>
+    <p class="fv__info">
+      開催日：4月上旬予定（日程決定次第ご連絡します）
+      <span class="fv__free">無料</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== 02 EMPATHY ===== -->
+<section class="section">
+  <div class="inner">
+    <span class="label">こんなお悩みありませんか？</span>
+    <h2>こんな状況、<br>思い当たりませんか？</h2>
+    <ul class="checklist">
+      <li>毎日投稿を続けているが問い合わせに直結した実感がない</li>
+      <li>ネタ切れで投稿内容を考える時間が増えている</li>
+      <li>広告を試したいが、リンク先のページがなくて踏み出せない</li>
+      <li>毎日投稿を「やめたい」と思いながら止められない</li>
+      <li>Instagram運用にかけているコストを正確に把握していない</li>
+    </ul>
+    <p class="empathy__close">
+      これらは「頑張りが足りない」のではなく、<strong>仕組みの問題</strong>です。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 03 SOLUTION ===== -->
+<section class="section section--gray">
+  <div class="inner">
+    <span class="label">解決策</span>
+    <h2>「毎日投稿を頑張る」以外の<br>選択肢があります</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>毎日投稿中心の運用</th>
+          <th>少額広告＋LPの仕組み</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>スタッフの時間＝人件費</td>
+          <td>広告費：1日500円〜</td>
+        </tr>
+        <tr>
+          <td>フォロワーにしか届かない</td>
+          <td>届けたい人に直接届く</td>
+        </tr>
+        <tr>
+          <td>投稿の先に受け皿がない</td>
+          <td>LPで申込みまで導ける</td>
+        </tr>
+        <tr>
+          <td>改善しづらい</td>
+          <td>自分でいつでも直せる</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <span class="label">セミナーで学べること</span>
+    <ul class="learn-list">
+      <li>毎日投稿に消えている「人件費」の可視化</li>
+      <li>少額SNS広告の仕組みと費用感</li>
+      <li>投稿をそのまま広告にしても効果が薄い理由</li>
+      <li>LPがあると集客の何が変わるか</li>
+      <li>AI時代に「自分でLPを作る」という選択肢</li>
+    </ul>
+    <div class="note-box">
+      難しいツールの操作説明はしません。<br>
+      「考え方を変える」ことに特化した90分です。
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 CTA MID ===== -->
+<section class="cta-mid" id="form-mid">
+  <div class="inner">
+    <p>「仕組みを変えたい」と思ったら、<br>まず無料セミナーへ。</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOT0imK_041p34mSSfGCraue9hZS8HLLuCArWiA9FX0Z_yvA/viewform" target="_blank" rel="noopener" class="btn">無料セミナーに申し込む</a>
+    <p class="meta">開催日：4月上旬予定 ／ 参加費：無料</p>
+  </div>
+</section>
+
+<!-- ===== 05 OVERVIEW + PROFILE ===== -->
+<section class="section">
+  <div class="inner">
+    <span class="label">開催概要</span>
+    <h2>セミナー詳細</h2>
+    <table class="overview-table">
+      <tr><th>日時</th><td>2026年4月上旬（日程決定次第ご連絡します）</td></tr>
+      <tr><th>場所</th><td>○○○○（姫路市内・詳細はお申込み後にご案内）</td></tr>
+      <tr><th>料金</th><td><strong>無料</strong></td></tr>
+      <tr><th>定員</th><td>○名（先着順）</td></tr>
+      <tr><th>対象</th><td>Instagram運用中の中小企業・個人店のオーナー・スタッフ</td></tr>
+      <tr><th>持ち物</th><td>なし（ノートを持参いただけると便利です）</td></tr>
+      <tr><th>主催</th><td>姫路スタイル</td></tr>
+    </table>
+
+    <span class="label">講師プロフィール</span>
+    <div class="profile">
+      <div class="profile__img">写真</div>
+      <div>
+        <p class="profile__name">福永義正</p>
+        <p class="profile__org">姫路スタイル</p>
+        <p class="profile__bio">
+          （実績・経歴・活動内容をここに記載）<br><br>
+          「投稿を頑張るほど疲弊する状況をなくしたい」という思いでこのセミナーを立ち上げました。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 FAQ ===== -->
+<section class="section section--gray">
+  <div class="inner">
+    <span class="label">よくある質問</span>
+    <h2>参加前のご不安を<br>解消します</h2>
+    <ul class="faq-list">
+      <li>
+        <p class="faq-q">Instagramをほとんどやっていませんが参加できますか？</p>
+        <p class="faq-a">はい。SNS集客全般の考え方として役立てていただけます。</p>
+      </li>
+      <li>
+        <p class="faq-q">操作が苦手でも大丈夫ですか？</p>
+        <p class="faq-a">ツールの操作説明はありません。考え方の話が中心ですので、どなたでもついてきていただけます。</p>
+      </li>
+      <li>
+        <p class="faq-q">当日参加できなくなった場合は？</p>
+        <p class="faq-a">開催日の前日までにご連絡いただければキャンセル可能です。</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 07 FINAL CTA ===== -->
+<section class="final-cta" id="form">
+  <div class="inner">
+    <p class="final-cta__headline">
+      「毎日投稿を頑張り続ける」から、<br>卒業してみませんか。
+    </p>
+    <p class="final-cta__body">
+      このセミナーは無料です。<br>
+      参加して「考え方が変わった」だけでも、<br>
+      十分な価値があると思っています。<br><br>
+      ただ、定員があります。<br>
+      気になっているなら、今すぐ申し込んでください。
+    </p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOT0imK_041p34mSSfGCraue9hZS8HLLuCArWiA9FX0Z_yvA/viewform" target="_blank" rel="noopener" class="btn">無料セミナーに申し込む</a>
+    <p class="meta">開催日：4月上旬予定 ／ お申込み後、詳細をご連絡します。</p>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 姫路スタイル All Rights Reserved.
+</footer>
+
+<!-- ===== STICKY BUTTON ===== -->
+<div class="sticky">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeOT0imK_041p34mSSfGCraue9hZS8HLLuCArWiA9FX0Z_yvA/viewform" target="_blank" rel="noopener">無料セミナーに申し込む →</a>
+</div>
+
+</body>
+</html>
