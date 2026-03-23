@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIでLPを作る かんたん手順書｜姫路スタイル</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/black.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:   #1a2744;
+      --blue:   #2d4a8a;
+      --orange: #e8601c;
+      --yellow: #f9c350;
+      --white:  #ffffff;
+      --light:  #f0f4ff;
+    }
+
+    .reveal {
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .reveal .slides section {
+      text-align: left;
+    }
+
+    /* ===== 背景色 ===== */
+    .reveal .slides section {
+      background: var(--navy);
+    }
+    .reveal .slides section.slide-light {
+      background: #f5f7ff;
+      color: #1a2744;
+    }
+    .reveal .slides section.slide-step {
+      background: linear-gradient(135deg, #1a2744 60%, #2d4a8a);
+    }
+
+    /* ===== タイトルスライド ===== */
+    .title-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.45em;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 3px;
+      letter-spacing: .08em;
+      margin-bottom: 20px;
+    }
+    .title-main {
+      font-size: 1.6em !important;
+      font-weight: 900 !important;
+      color: var(--white) !important;
+      line-height: 1.3 !important;
+      margin-bottom: 16px !important;
+    }
+    .title-sub {
+      font-size: 0.5em !important;
+      color: rgba(255,255,255,.7) !important;
+      line-height: 1.8 !important;
+    }
+    .title-logo {
+      margin-top: 40px;
+      font-size: 0.4em;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .1em;
+    }
+
+    /* ===== 共通見出し ===== */
+    .reveal h2 {
+      font-size: 0.9em !important;
+      font-weight: 900 !important;
+      color: var(--white) !important;
+      margin-bottom: 24px !important;
+      text-align: left !important;
+      text-transform: none !important;
+      letter-spacing: .02em !important;
+    }
+    .slide-light h2 { color: var(--navy) !important; }
+
+    .section-label {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.38em;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 2px;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+
+    /* ===== STEPバッジ ===== */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 1.1em;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 0.8em;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    /* ===== フロー図 ===== */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+    }
+    .flow-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: rgba(255,255,255,.07);
+      border-left: 4px solid var(--orange);
+      margin-bottom: 4px;
+      border-radius: 0 6px 6px 0;
+    }
+    .flow-num {
+      font-size: 1.2em;
+      font-weight: 900;
+      color: var(--orange);
+      width: 32px;
+      flex-shrink: 0;
+    }
+    .flow-text { font-size: 0.55em; color: var(--white); line-height: 1.5; }
+    .flow-sub  { font-size: 0.4em; color: rgba(255,255,255,.6); }
+    .flow-arrow {
+      text-align: center;
+      font-size: 1em;
+      color: var(--orange);
+      margin: 2px 0;
+      padding-left: 36px;
+    }
+
+    /* ===== ワークシート ===== */
+    .ws-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .ws-item {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .ws-num {
+      font-size: 0.38em;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+    .ws-label {
+      font-size: 0.46em;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .ws-hint {
+      font-size: 0.36em;
+      color: rgba(255,255,255,.55);
+      line-height: 1.5;
+    }
+    .ws-input {
+      width: 100%;
+      background: rgba(255,255,255,.08);
+      border: 1px dashed rgba(255,255,255,.3);
+      border-radius: 4px;
+      padding: 8px;
+      min-height: 44px;
+      margin-top: 6px;
+      font-size: 0.36em;
+      color: rgba(255,255,255,.4);
+    }
+
+    /* ===== コードブロック ===== */
+    .prompt-box {
+      background: #0d1b33;
+      border: 1px solid rgba(232,96,28,.4);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 0.38em;
+      line-height: 1.8;
+      color: #e0e8ff;
+      font-family: 'Noto Sans JP', monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-bottom: 10px;
+    }
+    .prompt-label {
+      font-size: 0.36em;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+    .prompt-highlight { color: var(--yellow); font-weight: 700; }
+
+    /* ===== チェックリスト ===== */
+    .check-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.5em;
+      color: var(--white);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      line-height: 1.5;
+    }
+    .check-list li::before {
+      content: '□';
+      color: var(--orange);
+      font-size: 1.1em;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ===== 手順リスト ===== */
+    .step-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: step;
+    }
+    .step-list li {
+      counter-increment: step;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.46em;
+      color: var(--white);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      line-height: 1.6;
+    }
+    .step-list li::before {
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.9em;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-list .note {
+      font-size: 0.82em;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* ===== 2カラム ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .col-box {
+      background: rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .col-box-title {
+      font-size: 0.42em;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 10px;
+      letter-spacing: .05em;
+    }
+
+    /* ===== 注意・補足 ===== */
+    .note-box {
+      background: rgba(249,195,80,.1);
+      border-left: 3px solid var(--yellow);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.42em;
+      color: rgba(255,255,255,.85);
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+
+    /* ===== まとめスライド ===== */
+    .summary-quote {
+      background: rgba(232,96,28,.12);
+      border: 1px solid rgba(232,96,28,.4);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-size: 0.52em;
+      color: var(--white);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+    .summary-quote em {
+      font-style: normal;
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    /* ===== コピーボタン ===== */
+    .prompt-wrapper {
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(232,96,28,.85);
+      color: var(--white);
+      border: none;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .04em;
+      transition: background .2s, transform .1s;
+      z-index: 10;
+    }
+    .copy-btn:hover { background: var(--orange); transform: scale(1.05); }
+    .copy-btn.copied { background: #2a7a46; }
+
+    /* ===== ナビゲーション強調 ===== */
+    .reveal .controls { color: var(--orange); }
+    .reveal .progress span { background: var(--orange); }
+
+    /* ===== スライド番号 ===== */
+    .reveal .slide-number {
+      background: rgba(0,0,0,.4);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ===== 01 タイトル ===== -->
+<section style="text-align:center; background: linear-gradient(160deg, #1a2744 55%, #2d4a8a);">
+  <div style="max-width:700px; margin:0 auto;">
+    <div class="title-badge">vol.2 参加特典</div>
+    <h1 class="title-main">AIでLPを作る<br>かんたん手順書</h1>
+    <p class="title-sub">
+      AIを使って自分でLPを作る・公開する<br>
+      4ステップ完全ガイド
+    </p>
+    <p class="title-logo">姫路スタイル｜AI時代の頑張らないInstagram運用</p>
+  </div>
+</section>
+
+<!-- ===== 02 LPとは ===== -->
+<section>
+  <div class="section-label">はじめに</div>
+  <h2>LPとは何か</h2>
+  <div class="flow">
+    <div class="flow-item" style="border-color:#f9c350; background:rgba(249,195,80,.08);">
+      <div style="font-size:1.4em;">📄</div>
+      <div>
+        <div class="flow-text" style="font-weight:700; color:var(--yellow);">LP（ランディングページ）</div>
+        <div class="flow-sub">見た人を「1つの行動」へ導くページ</div>
+      </div>
+    </div>
+  </div>
+  <div style="height:16px;"></div>
+  <div class="two-col">
+    <div class="col-box">
+      <div class="col-box-title">LPの目的の例</div>
+      <ul class="check-list">
+        <li>問い合わせをしてもらう</li>
+        <li>セミナーに申し込んでもらう</li>
+        <li>商品を購入してもらう</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <div class="col-box-title">通常HPとの違い</div>
+      <ul class="check-list">
+        <li>目的：1つの行動のみ</li>
+        <li>構造：縦スクロール1ページ</li>
+        <li>ゴール：申込み・問い合わせ</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note-box">
+    ポイント：情報を並べるページではなく、<strong>行動を起こさせるページ</strong>です。
+  </div>
+</section>
+
+<!-- ===== 03 全体の流れ ===== -->
+<section class="slide-step">
+  <div class="section-label">全体像</div>
+  <h2>4ステップで完成する</h2>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-num">1</div>
+      <div>
+        <div class="flow-text" style="font-weight:700;">言語化</div>
+        <div class="flow-sub">自分のサービスについて6つの項目を整理する</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <div class="flow-num">2</div>
+      <div>
+        <div class="flow-text" style="font-weight:700;">シナリオ生成</div>
+        <div class="flow-sub">整理した情報をAIに渡してLPの構成を作る</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <div class="flow-num">3</div>
+      <div>
+        <div class="flow-text" style="font-weight:700;">HTML生成</div>
+        <div class="flow-sub">シナリオをAIに渡してコードを書いてもらう</div>
+      </div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-item">
+      <div class="flow-num">4</div>
+      <div>
+        <div class="flow-text" style="font-weight:700;">公開</div>
+        <div class="flow-sub">NetlifyにアップロードしてURLを発行する</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 STEP1 説明 ===== -->
+<section>
+  <div class="step-badge">
+    <div class="step-num">1</div>
+    <div class="step-title">言語化<br><span style="font-size:.7em; font-weight:400; color:rgba(255,255,255,.6);">AIに渡す「素材」を整理する</span></div>
+  </div>
+  <div class="note-box" style="margin-bottom:20px;">
+    ⚠️ ここが一番大切な工程です。素材が整理できていれば、AIは非常に優秀に動きます。
+  </div>
+  <div class="flow-item" style="margin-bottom:0;">
+    <div style="font-size:1.2em;">📝</div>
+    <div>
+      <div class="flow-text" style="font-weight:700;">6つの項目に答えるだけ</div>
+      <div class="flow-sub">完璧に書けなくても大丈夫。書けた分でAIに渡してみましょう。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 ワークシート ①②③ ===== -->
+<section>
+  <div class="section-label">STEP 1｜言語化ワークシート</div>
+  <h2>① ② ③ を記入する</h2>
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    <div class="ws-item">
+      <div class="ws-num">① 誰向けのサービスか</div>
+      <div class="ws-hint">年齢・職業・状況など、できるだけ具体的に</div>
+      <div class="ws-input">（例：40代の女性サロンオーナー）</div>
+    </div>
+    <div class="ws-item">
+      <div class="ws-num">② その人は何に困っているか</div>
+      <div class="ws-hint">日々感じている悩み・不満・不安を具体的に</div>
+      <div class="ws-input">（例：集客が安定せず毎月売上が読めない）</div>
+    </div>
+    <div class="ws-item">
+      <div class="ws-num">③ サービスでどう変われるか（得られる未来）</div>
+      <div class="ws-hint">申込み・購入後に手に入る状態・感情</div>
+      <div class="ws-input">（例：リピート客が増えて安定した収入が得られる）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 ワークシート ④⑤⑥ ===== -->
+<section>
+  <div class="section-label">STEP 1｜言語化ワークシート</div>
+  <h2>④ ⑤ ⑥ を記入する</h2>
+  <div style="display:flex; flex-direction:column; gap:10px;">
+    <div class="ws-item">
+      <div class="ws-num">④ 何を提供するのか（内容・形式・時間・料金）</div>
+      <div class="ws-hint">具体的な内容を箇条書きで</div>
+      <div class="ws-input">（例：60分の個別コンサル／月2回／月額3万円）</div>
+    </div>
+    <div class="ws-item">
+      <div class="ws-num">⑤ なぜ自社・あなたなのか（強み・実績・理由）</div>
+      <div class="ws-hint">他と違う点、信頼できる根拠</div>
+      <div class="ws-input">（例：10年・500件以上の支援実績）</div>
+    </div>
+    <div class="ws-item">
+      <div class="ws-num">⑥ 最後に何をしてほしいか</div>
+      <div class="ws-hint">問い合わせ／申込み／相談予約 など</div>
+      <div class="ws-input">（例：LINEから無料相談を申し込んでほしい）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 STEP2 説明 ===== -->
+<section>
+  <div class="step-badge">
+    <div class="step-num">2</div>
+    <div class="step-title">シナリオ生成<br><span style="font-size:.7em; font-weight:400; color:rgba(255,255,255,.6);">AIにLPの構成を作ってもらう</span></div>
+  </div>
+  <div style="height:12px;"></div>
+  <div class="flow-item" style="margin-bottom:8px;">
+    <div style="font-size:1.1em;">🤖</div>
+    <div>
+      <div class="flow-text">使うツール：<strong>Gemini</strong>（gemini.google.com）</div>
+      <div class="flow-sub">Googleアカウントでログインして使います</div>
+    </div>
+  </div>
+  <div style="height:12px;"></div>
+  <div class="col-box">
+    <div class="col-box-title">LPシナリオの8ステップ構造</div>
+    <ul class="check-list" style="columns:2; gap:20px;">
+      <li>共感</li>
+      <li>問題提起</li>
+      <li>理想の未来</li>
+      <li>解決策</li>
+      <li>信頼</li>
+      <li>詳細説明</li>
+      <li>不安解消</li>
+      <li>CTA</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 08 プロンプト① ===== -->
+<section>
+  <div class="section-label">STEP 2｜プロンプト</div>
+  <h2>以下をコピーしてGeminiに貼り付ける</h2>
+  <div class="prompt-label">▼ プロンプト①（シナリオ生成）— Geminiに貼り付けて使います</div>
+  <div class="prompt-wrapper">
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+    <div class="prompt-box">あなたはLP制作のプロです。
+以下の情報をもとに、見た人が申し込みたくなるLPのシナリオを作成してください。
+
+【情報】
+① 誰向けのサービスか：<span class="prompt-highlight">（STEP1の①を貼る）</span>
+② その人は何に困っているか：<span class="prompt-highlight">（STEP1の②を貼る）</span>
+③ サービスでどう変われるか：<span class="prompt-highlight">（STEP1の③を貼る）</span>
+④ 何を提供するのか：<span class="prompt-highlight">（STEP1の④を貼る）</span>
+⑤ なぜ自社・あなたなのか：<span class="prompt-highlight">（STEP1の⑤を貼る）</span>
+⑥ 最後に何をしてほしいか：<span class="prompt-highlight">（STEP1の⑥を貼る）</span>
+
+【LPのシナリオ構成】
+以下の8つのセクションで構成してください。
+各セクションに見出しと本文を書いてください。
+1.共感 2.問題提起 3.理想の未来 4.解決策
+5.信頼 6.詳細説明 7.不安解消 8.CTA
+
+日本語で、ターゲットに刺さる言葉で書いてください。</div>
+  </div>
+  <div class="note-box">
+    黄色部分を自分の情報に差し替えてからGeminiに送信します。生成後はメモ帳に保存しておきましょう。
+  </div>
+</section>
+
+<!-- ===== 09 シナリオ確認 ===== -->
+<section>
+  <div class="section-label">STEP 2｜確認・修正</div>
+  <h2>シナリオを確認するポイント</h2>
+  <ul class="check-list">
+    <li>ターゲットに「刺さる」言葉になっているか</li>
+    <li>自社らしい表現になっているか</li>
+    <li>違和感のある部分はないか</li>
+    <li>抜けているセクションはないか</li>
+  </ul>
+  <div style="height:16px;"></div>
+  <div class="col-box">
+    <div class="col-box-title">修正の指示例（そのままAIに送る）</div>
+    <div class="prompt-wrapper">
+      <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+      <div class="prompt-box" style="margin-bottom:0;">「〇〇の部分をもっと具体的にしてください」
+「〇〇というセクションを追加してください」
+「全体のトーンをもっと親しみやすくしてください」
+「料金の部分をもう少し詳しく書いてください」</div>
+    </div>
+  </div>
+  <div class="note-box">完璧なシナリオでなくて大丈夫。「これで大体伝わる」レベルになれば次へ進みましょう。</div>
+</section>
+
+<!-- ===== 10 STEP3 説明 ===== -->
+<section>
+  <div class="step-badge">
+    <div class="step-num">3</div>
+    <div class="step-title">HTML生成<br><span style="font-size:.7em; font-weight:400; color:rgba(255,255,255,.6);">AIにコードを書いてもらう</span></div>
+  </div>
+  <div style="height:12px;"></div>
+  <div class="flow-item" style="margin-bottom:8px;">
+    <div style="font-size:1.1em;">💻</div>
+    <div>
+      <div class="flow-text">コードがわからなくて当然です</div>
+      <div class="flow-sub">直し方もAIに聞けばいいだけです</div>
+    </div>
+  </div>
+  <div style="height:12px;"></div>
+  <div class="two-col">
+    <div class="col-box">
+      <div class="col-box-title">AIがやること</div>
+      <ul class="check-list">
+        <li>HTMLコードを書く</li>
+        <li>デザインを整える</li>
+        <li>スマホ対応にする</li>
+      </ul>
+    </div>
+    <div class="col-box">
+      <div class="col-box-title">あなたがやること</div>
+      <ul class="check-list">
+        <li>コピーして貼る</li>
+        <li>ファイルに保存する</li>
+        <li>ブラウザで確認する</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11 プロンプト② ===== -->
+<section>
+  <div class="section-label">STEP 3｜プロンプト</div>
+  <h2>以下をコピーしてGeminiに貼り付ける</h2>
+  <div class="prompt-label">▼ プロンプト②（HTML生成）— Geminiに貼り付けて使います</div>
+  <div class="prompt-wrapper">
+    <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+    <div class="prompt-box">以下のLPシナリオをもとに、スマートフォン対応のHTMLページを作成してください。
+
+【シナリオ】
+<span class="prompt-highlight">（STEP2で作ったシナリオ全文をここに貼り付ける）</span>
+
+【デザイン要件】
+・スマートフォンで見やすいレイアウト（モバイルファースト）
+・フォント：Noto Sans JP（Googleフォント）
+・申込みボタンは目立つオレンジ色で大きめに表示
+・画面下部に常時表示される申込みボタンを設置
+・申込みボタンのリンク先：<span class="prompt-highlight">（申込みフォームのURLを入れる）</span>
+・全体的にシンプルで読みやすいデザイン
+・セクションごとに背景色を変えて読みやすくする
+
+コードはHTMLとCSSをひとつのファイルにまとめてください。</div>
+  </div>
+</section>
+
+<!-- ===== 12 ファイル保存 ===== -->
+<section>
+  <div class="section-label">STEP 3｜ファイル保存</div>
+  <h2>HTMLファイルを保存する</h2>
+  <ul class="step-list">
+    <li>PCで新しいフォルダを作る<br><span class="note">（例：「myLP」などわかりやすい名前）</span></li>
+    <li>フォルダの中にテキストファイルを作る<br><span class="note">Windows：右クリック→新規作成→テキストドキュメント<br>Mac：テキストエディット→フォーマット→標準テキスト</span></li>
+    <li>AIが出力したコードを全部貼り付ける</li>
+    <li>ファイル名を <strong>「index.html」</strong> に変更して保存<br><span class="note">拡張子が .txt から .html に変わることを確認する</span></li>
+    <li>index.htmlをダブルクリックしてブラウザで確認する</li>
+  </ul>
+</section>
+
+<!-- ===== 13 表示確認 ===== -->
+<section>
+  <div class="section-label">STEP 3｜確認・修正</div>
+  <h2>表示を確認する</h2>
+  <ul class="check-list">
+    <li>文字が正しく表示されているか</li>
+    <li>全体のレイアウトが崩れていないか</li>
+    <li>申込みボタンが目立っているか</li>
+    <li>読みやすいか（スマホで上から下まで通して読む）</li>
+  </ul>
+  <div style="height:20px;"></div>
+  <div class="note-box">
+    うまく表示されない場合は、次のスライドのエラー対処プロンプトをAIにそのまま送ってください。
+  </div>
+</section>
+
+<!-- ===== 13b エラー対処 ===== -->
+<section>
+  <div class="section-label">STEP 3｜エラー対処</div>
+  <h2>うまく表示されない場合 — コピーしてAIに送る</h2>
+  <div style="display:flex; flex-direction:column; gap:10px;">
+
+    <div>
+      <div class="prompt-label" style="font-size:0.34em; margin-bottom:3px;">📌 表示が崩れている</div>
+      <div class="prompt-wrapper">
+        <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+        <div class="prompt-box" style="padding:10px 14px; font-size:0.38em;">このコードのどこかに問題がありますか？修正してください。</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="prompt-label" style="font-size:0.34em; margin-bottom:3px;">📌 文字化けしている</div>
+      <div class="prompt-wrapper">
+        <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+        <div class="prompt-box" style="padding:10px 14px; font-size:0.38em;">文字化けが起きています。&lt;head&gt;タグ内にcharset=UTF-8の記述を追加してください。</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="prompt-label" style="font-size:0.34em; margin-bottom:3px;">📌 コードが途中で切れた</div>
+      <div class="prompt-wrapper">
+        <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+        <div class="prompt-box" style="padding:10px 14px; font-size:0.38em;">続きを出力してください。</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="prompt-label" style="font-size:0.34em; margin-bottom:3px;">📌 スマホで文字が小さい</div>
+      <div class="prompt-wrapper">
+        <button class="copy-btn" onclick="copyPrompt(this)">📋 コピー</button>
+        <div class="prompt-box" style="padding:10px 14px; font-size:0.38em;">スマートフォンで文字が小さすぎます。本文のフォントサイズを16px以上にして、余白（padding）も広くしてください。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 14 STEP4 Netlify ===== -->
+<section>
+  <div class="step-badge">
+    <div class="step-num">4</div>
+    <div class="step-title">Netlifyで公開<br><span style="font-size:.7em; font-weight:400; color:rgba(255,255,255,.6);">URLを発行してインターネットに公開する</span></div>
+  </div>
+  <div style="height:8px;"></div>
+  <ul class="step-list">
+    <li><strong>netlify.com</strong> にログインする<br><span class="note">※ 事前にGoogleアカウントでの登録が必要</span></li>
+    <li>「Add new site」→「Deploy manually」を選ぶ</li>
+    <li>index.htmlが入った<strong>フォルダごと</strong>ドラッグ＆ドロップする<br><span class="note">※ ファイル単体ではなくフォルダごと</span></li>
+    <li>アップロードが完了するまで待つ（数十秒）</li>
+    <li>「〇〇〇.netlify.app」という<strong>URLが発行される</strong></li>
+    <li>URLをクリックして表示を確認する</li>
+  </ul>
+  <div class="note-box">
+    URLが発行された瞬間、あなたのLPがインターネット上に公開されました。
+  </div>
+</section>
+
+<!-- ===== 15 公開後チェック ===== -->
+<section>
+  <div class="section-label">公開後の仕上げ</div>
+  <h2>スマホで確認・仕上げをする</h2>
+  <ul class="check-list">
+    <li>スマホで正しく表示されているか</li>
+    <li>AIっぽい表現を自分の言葉に直す<br><small style="color:rgba(255,255,255,.5);">「〜でしょう」「〜と思われます」などを修正</small></li>
+    <li>申込みボタンの文言を具体的にする<br><small style="color:rgba(255,255,255,.5);">「申し込む」→「無料相談を申し込む」など</small></li>
+    <li>会社名・店名・連絡先が正しく入っているか</li>
+    <li>申込みフォームのリンクが正しいか</li>
+  </ul>
+  <div style="height:10px;"></div>
+  <div class="col-box">
+    <div class="col-box-title">修正後の再アップロード手順</div>
+    <div style="font-size:0.42em; color:rgba(255,255,255,.8); line-height:1.9;">
+      index.htmlをAIで修正・保存 → Netlifyの「Deploys」タブを開く<br>
+      → ページ下部にフォルダを再ドラッグ → 新URLで確認
+    </div>
+  </div>
+</section>
+
+<!-- ===== 16 まとめ ===== -->
+<section style="text-align:center; background: linear-gradient(160deg, #1a2744 55%, #2d4a8a);">
+  <div style="max-width:680px; margin:0 auto;">
+    <div class="section-label">まとめ</div>
+    <h2 style="text-align:center !important; font-size:1em !important; margin-bottom:24px !important;">今日手に入れた本当の価値</h2>
+    <div class="summary-quote">
+      「1本LPを作った」ことより、<br>
+      <em>「いつでも自分でLPを作れる力を<br>手に入れた」</em><br>
+      ことが今日の本当の成果です。
+    </div>
+    <ul class="check-list" style="text-align:left;">
+      <li>新しい企画が生まれたら、その日に作れる</li>
+      <li>広告を出したくなったら、受け皿をすぐ準備できる</li>
+      <li>外注を待たずに、自分のタイミングで動ける</li>
+    </ul>
+    <div style="margin-top:28px; font-size:0.42em; color:rgba(255,255,255,.5);">
+      次のステップ → LP制作ワークショップ（別日・有料）<br>
+      この手順書を使って、実際に自分のLPを完成させます。<br><br>
+      姫路スタイル
+    </div>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    progress: true,
+    controls: true,
+    transition: 'slide',
+    transitionSpeed: 'fast',
+    center: false,
+    width: 960,
+    height: 700,
+    margin: 0.06,
+    plugins: []
+  });
+
+  function copyPrompt(btn) {
+    const box = btn.closest('.prompt-wrapper').querySelector('.prompt-box');
+    // innerText でHTMLタグを除いた純テキストを取得
+    const text = box.innerText;
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = '✓ コピー完了!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = '📋 コピー';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(function() {
+      // clipboard API が使えない場合のフォールバック
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = '✓ コピー完了!';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = '📋 コピー';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
